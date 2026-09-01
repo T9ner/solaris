@@ -40,68 +40,6 @@ The pipeline runs as a directed state graph:
 
 ![Forge Architecture Flowchart](assets/flowchart.png)
 
-```mermaid
-flowchart TD
-    subgraph SENSE["1. SENSE (Multi-Source Extraction)"]
-        direction TB
-        GH["GitHub PRs & Issues"]
-        LIN["Linear Tickets & Sprints"]
-        STR["Stripe Billing Events"]
-        SEN["Sentry Error Logs"]
-        WB["Solari Cloud Browser (Stealth & rrweb)"]
-    end
-
-    subgraph DECIDE["2. DECIDE (Cross-System Reasoning)"]
-        direction TB
-        CORR["Signal Correlation Engine"]
-        DRIFT["Status Drift & Regression Detector"]
-        PLAN["Action Resolution Planner"]
-    end
-
-    subgraph EXECUTE["3. EXECUTE (Solari Infrastructure)"]
-        direction TB
-        SBX["MicroVM Sandbox (~1s Boot)"]
-        PATCH["Code Reproduction & Patcher"]
-        TEST["Isolated Pytest Runner"]
-        DESK["Managed Desktop (X11 & VNC)"]
-    end
-
-    subgraph VERIFY["4. VERIFY (Staging Validation)"]
-        direction TB
-        PREV["Public Port Preview (*.preview.getsolari.com)"]
-        RRWEB["rrweb DOM Replay Verification"]
-    end
-
-    subgraph APPROVE["5. APPROVE (Human-in-the-Loop)"]
-        direction TB
-        GATE{"Approval Checkpoint"}
-    end
-
-    subgraph SAVE["6. SAVE (Audit & Delivery)"]
-        direction TB
-        BRIEF["Executive Briefing (.md)"]
-        TRACE["Canonical Trajectory (.json)"]
-    end
-
-    SENSE --> DECIDE
-    DECIDE -->|Gaps Detected| EXECUTE
-    DECIDE -->|Zero Gaps| SAVE
-    EXECUTE --> VERIFY
-    VERIFY --> GATE
-    GATE -->|Approved| SAVE
-    GATE -->|Rejected| ABORT["Abort & Log"]
-
-    classDef nodeStyle fill:#12151c,stroke:#252b38,stroke-width:1px,color:#f0f3f8;
-    classDef highlight fill:#0c1a25,stroke:#00d2ff,stroke-width:2px,color:#00d2ff;
-    classDef greenHighlight fill:#0e1512,stroke:#00e676,stroke-width:2px,color:#00e676;
-    classDef amberHighlight fill:#271f1f,stroke:#ffab00,stroke-width:2px,color:#ffab00;
-
-    class SENSE,DECIDE,EXECUTE,VERIFY,APPROVE,SAVE nodeStyle;
-    class SBX,WB,DESK highlight;
-    class GATE amberHighlight;
-    class BRIEF,TRACE greenHighlight;
-```
-
 1. **Sense Node**: Collects structured signals across APIs and scrapes bot-protected portals via Solari Cloud Browser.
 2. **Decide Node**: Correlates events across tools to isolate genuine drift and regressions with zero false positives.
 3. **Execute Node**: Boots a Solari microVM sandbox in one second, writes reproduction scripts, executes test suites, and exposes live staging servers.
