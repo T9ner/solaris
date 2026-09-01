@@ -1,5 +1,7 @@
 # Forge Autonomous Operations Engine (Powered by Solari)
 
+[![CI](https://github.com/T9ner/solaris/actions/workflows/ci.yml/badge.svg)](https://github.com/T9ner/solaris/actions/workflows/ci.yml)
+
 An autonomous cross-stack intelligence and remediation worker built on LangGraph and Solari infrastructure.
 
 It senses cross-tool discrepancies across GitHub, Linear, Stripe, Sentry, and live web portals, isolates root causes in isolated microVM sandboxes, verifies fixes against live port previews and session recordings, and delivers verified briefs with human-in-the-loop approval.
