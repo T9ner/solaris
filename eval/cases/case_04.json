@@ -1,0 +1,31 @@
+{
+  "case_id": "case_04",
+  "description": "Billing integrity audit: Public marketing page displays $49/mo Pro plan while Stripe API is set to $59/mo.",
+  "expected_gaps_count": 1,
+  "expected_categories": ["payment_mismatch"],
+  "github_prs": [],
+  "github_issues": [],
+  "linear_tickets": [],
+  "sentry_errors": [],
+  "stripe_events": [
+    {
+      "id": "evt_stripe_pricing",
+      "title": "Stripe Billing Catalog",
+      "plans": {
+        "Pro": 59,
+        "Enterprise": 299
+      }
+    }
+  ],
+  "web_targets": [
+    {
+      "url": "https://company.com/pricing",
+      "stealth": true,
+      "proxy": "us",
+      "extracted_plans": {
+        "Pro": 49,
+        "Enterprise": 299
+      }
+    }
+  ]
+}

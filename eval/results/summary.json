@@ -1,0 +1,119 @@
+{
+  "total_cases": 10,
+  "detection_rate_pct": 100.0,
+  "false_positive_rate_pct": 0.0,
+  "avg_time_seconds": 0.28,
+  "total_tokens": 46600,
+  "cases": [
+    {
+      "case_id": "case_01",
+      "expected_gaps": 1,
+      "detected_gaps": 1,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.25,
+      "token_usage": 4670,
+      "verified": true,
+      "preview_url": null
+    },
+    {
+      "case_id": "case_02",
+      "expected_gaps": 1,
+      "detected_gaps": 1,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.43,
+      "token_usage": 4530,
+      "verified": true,
+      "preview_url": "https://sbx_sim_2_base-3000.preview.getsolari.com"
+    },
+    {
+      "case_id": "case_03",
+      "expected_gaps": 1,
+      "detected_gaps": 1,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.42,
+      "token_usage": 4390,
+      "verified": true,
+      "preview_url": "https://sbx_sim_3_base-3000.preview.getsolari.com"
+    },
+    {
+      "case_id": "case_04",
+      "expected_gaps": 1,
+      "detected_gaps": 1,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.25,
+      "token_usage": 4530,
+      "verified": true,
+      "preview_url": null
+    },
+    {
+      "case_id": "case_05",
+      "expected_gaps": 2,
+      "detected_gaps": 2,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.4,
+      "token_usage": 5470,
+      "verified": true,
+      "preview_url": "https://sbx_sim_5_base-3000.preview.getsolari.com"
+    },
+    {
+      "case_id": "case_06",
+      "expected_gaps": 0,
+      "detected_gaps": 0,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.0,
+      "token_usage": 2080,
+      "verified": true,
+      "preview_url": null
+    },
+    {
+      "case_id": "case_07",
+      "expected_gaps": 2,
+      "detected_gaps": 2,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.47,
+      "token_usage": 5610,
+      "verified": true,
+      "preview_url": "https://sbx_sim_6_base-3000.preview.getsolari.com"
+    },
+    {
+      "case_id": "case_08",
+      "expected_gaps": 3,
+      "detected_gaps": 3,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.18,
+      "token_usage": 6690,
+      "verified": true,
+      "preview_url": null
+    },
+    {
+      "case_id": "case_09",
+      "expected_gaps": 3,
+      "detected_gaps": 3,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.41,
+      "token_usage": 6550,
+      "verified": true,
+      "preview_url": "https://sbx_sim_8_base-3000.preview.getsolari.com"
+    },
+    {
+      "case_id": "case_10",
+      "expected_gaps": 0,
+      "detected_gaps": 0,
+      "correct": true,
+      "false_positives": 0,
+      "execution_time_s": 0.0,
+      "token_usage": 2080,
+      "verified": true,
+      "preview_url": null
+    }
+  ]
+}

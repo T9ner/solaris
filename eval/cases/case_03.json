@@ -1,0 +1,21 @@
+{
+  "case_id": "case_03",
+  "description": "Production observability audit: Sentry error spike with 84 events after deployment, no Linear ticket created.",
+  "expected_gaps_count": 1,
+  "expected_categories": ["release_regression"],
+  "github_prs": [],
+  "github_issues": [],
+  "linear_tickets": [],
+  "sentry_errors": [
+    {
+      "id": "SENTRY-991",
+      "title": "NullReferenceException in PaymentWebhookHandler",
+      "status": "unresolved",
+      "event_count": 84,
+      "has_ticket": false,
+      "stacktrace": "Traceback (most recent call last):\n  File 'webhook.py', line 42, in process\n    customer_id = data['customer']['id']\nKeyError: 'customer'"
+    }
+  ],
+  "stripe_events": [],
+  "web_targets": []
+}

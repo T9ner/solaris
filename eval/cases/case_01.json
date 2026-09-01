@@ -1,0 +1,30 @@
+{
+  "case_id": "case_01",
+  "description": "Weekly status sync audit: Detect PR merged on Friday with Linear ticket still in progress.",
+  "expected_gaps_count": 1,
+  "expected_categories": ["status_drift"],
+  "github_prs": [
+    {
+      "id": "101",
+      "title": "feat(auth): add google oauth provider support [ENG-402]",
+      "status": "merged",
+      "linear_issue_id": "ENG-402"
+    }
+  ],
+  "github_issues": [],
+  "linear_tickets": [
+    {
+      "id": "ENG-402",
+      "title": "Add Google OAuth Provider Support",
+      "status": "in_progress"
+    }
+  ],
+  "sentry_errors": [],
+  "stripe_events": [],
+  "web_targets": [
+    {
+      "url": "https://auth.company.com/login",
+      "extracted_plans": {}
+    }
+  ]
+}

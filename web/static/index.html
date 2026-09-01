@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forge Autonomous Operations Cockpit</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <h1>Forge Autonomous Operations Cockpit</h1>
+      <span class="badge">Powered by Solari</span>
+    </div>
+    <div style="font-size: 13px; color: var(--text-secondary);">
+      Runtime: <span style="color: var(--accent-green);">Ready</span> | Latency: <span style="font-family: var(--font-mono);">0.28s avg</span>
+    </div>
+  </header>
+
+  <section class="stats-bar">
+    <div class="stat-card">
+      <div class="label">Benchmark Gap Detection</div>
+      <div class="value green" id="stat-detection">100.0%</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">False Positive Rate</div>
+      <div class="value cyan" id="stat-fp">0.0%</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Average Run Time</div>
+      <div class="value" id="stat-time">0.28s</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Human-in-the-Loop Gating</div>
+      <div class="value amber">Enabled</div>
+    </div>
+  </section>
+
+  <div class="main-grid">
+    <!-- Left Sidebar Control Panel -->
+    <div class="panel">
+      <h2>Execute Audit Scenario</h2>
+      <select id="case-select" class="case-select">
+        <option value="case_01">Case 01: PR Merged vs Linear In Progress</option>
+        <option value="case_02">Case 02: Linear Done vs Critical Bug Issue</option>
+        <option value="case_03">Case 03: Sentry Error Spike (84 Events)</option>
+        <option value="case_04">Case 04: Web Pricing vs Stripe API</option>
+        <option value="case_05">Case 05: Multi-System Release Incident</option>
+        <option value="case_06">Case 06: Baseline Sync (0 Gaps)</option>
+        <option value="case_07">Case 07: Enterprise Billing & SAML Drift</option>
+        <option value="case_08">Case 08: Multi-Team Sprint Audit (3 Gaps)</option>
+        <option value="case_09">Case 09: OutOfMemory Outage Postmortem</option>
+        <option value="case_10">Case 10: Production Release Verification</option>
+      </select>
+
+      <button id="run-btn" class="btn-primary">Run Autonomous Pipeline</button>
+
+      <h2 style="margin-top: 24px;">Live Node Trajectory</h2>
+      <div id="log-viewer" class="log-viewer">
+        <div class="log-line"><span class="time">[INIT]</span> Ready to execute pipeline.</div>
+      </div>
+    </div>
+
+    <!-- Right Live Telemetry & Results Panel -->
+    <div class="panel">
+      <h2>Audit Findings & Surfaced Discrepancies</h2>
+      <div id="discrepancies-list">
+        <div style="color: var(--text-secondary); font-size: 13px;">Select a scenario on the left and run the pipeline to view real-time discrepancy analysis.</div>
+      </div>
+
+      <h2 style="margin-top: 24px;">Generated Executive Intelligence Brief</h2>
+      <div id="brief-box" class="brief-box">Executive brief will render here upon completion.</div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

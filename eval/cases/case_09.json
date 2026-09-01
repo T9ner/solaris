@@ -1,0 +1,44 @@
+{
+  "case_id": "case_09",
+  "description": "High-severity outage postmortem: Memory leak exception in Sentry and 2 unresolved linear tickets.",
+  "expected_gaps_count": 3,
+  "expected_categories": ["release_regression", "status_drift", "status_drift"],
+  "github_prs": [
+    {
+      "id": "310",
+      "title": "fix(worker): heartbeat timeout [OPS-44]",
+      "status": "merged",
+      "linear_issue_id": "OPS-44"
+    },
+    {
+      "id": "311",
+      "title": "fix(queue): retry backoff [OPS-45]",
+      "status": "merged",
+      "linear_issue_id": "OPS-45"
+    }
+  ],
+  "github_issues": [],
+  "linear_tickets": [
+    {
+      "id": "OPS-44",
+      "title": "Worker heartbeat timeout",
+      "status": "in_progress"
+    },
+    {
+      "id": "OPS-45",
+      "title": "Queue retry backoff",
+      "status": "todo"
+    }
+  ],
+  "sentry_errors": [
+    {
+      "id": "SENTRY-500",
+      "title": "Fatal: OutOfMemoryError in Celery worker pool",
+      "status": "unresolved",
+      "event_count": 240,
+      "has_ticket": false
+    }
+  ],
+  "stripe_events": [],
+  "web_targets": []
+}

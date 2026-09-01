@@ -1,0 +1,33 @@
+{
+  "case_id": "case_05",
+  "description": "Multi-system release breakdown: Merged PR with stale ticket + unhandled Sentry spike.",
+  "expected_gaps_count": 2,
+  "expected_categories": ["status_drift", "release_regression"],
+  "github_prs": [
+    {
+      "id": "112",
+      "title": "fix(db): add connection pooling retry logic [ENG-510]",
+      "status": "merged",
+      "linear_issue_id": "ENG-510"
+    }
+  ],
+  "github_issues": [],
+  "linear_tickets": [
+    {
+      "id": "ENG-510",
+      "title": "Add connection pooling retry logic",
+      "status": "todo"
+    }
+  ],
+  "sentry_errors": [
+    {
+      "id": "SENTRY-882",
+      "title": "OperationalError: connection pool exhausted",
+      "status": "unresolved",
+      "event_count": 120,
+      "has_ticket": false
+    }
+  ],
+  "stripe_events": [],
+  "web_targets": []
+}

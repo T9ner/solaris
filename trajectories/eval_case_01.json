@@ -1,0 +1,201 @@
+{
+  "case_id": "case_01",
+  "task_description": "Weekly status sync audit: Detect PR merged on Friday with Linear ticket still in progress.",
+  "environment_mode": "mock",
+  "signals": [
+    {
+      "tool_name": "github",
+      "signal_type": "pull_request",
+      "entity_id": "101",
+      "title": "feat(auth): add google oauth provider support [ENG-402]",
+      "status": "merged",
+      "payload": {
+        "id": "101",
+        "title": "feat(auth): add google oauth provider support [ENG-402]",
+        "status": "merged",
+        "linear_issue_id": "ENG-402"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "linear",
+      "signal_type": "ticket",
+      "entity_id": "ENG-402",
+      "title": "Add Google OAuth Provider Support",
+      "status": "in_progress",
+      "payload": {
+        "id": "ENG-402",
+        "title": "Add Google OAuth Provider Support",
+        "status": "in_progress"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "web_portal",
+      "signal_type": "web_page",
+      "entity_id": "https://auth.company.com/login",
+      "title": "Page at https://auth.company.com/login",
+      "status": "reachable",
+      "payload": {
+        "url": "https://auth.company.com/login",
+        "plans": {},
+        "snippet": "<html><body><h1>Page at https://auth.company.com/login</h1><p>Simulated live extraction for https://auth.company.com/login</p></body></html>",
+        "session_id": "mock_sess_dada65ae"
+      },
+      "raw_snippet": "<html><body><h1>Page at https://auth.company.com/login</h1><p>Simulated live extraction for https://auth.company.com/login</p></body></html>"
+    }
+  ],
+  "web_extractions": [
+    {
+      "url": "https://auth.company.com/login",
+      "title": "Page at https://auth.company.com/login",
+      "status_code": 200,
+      "session_id": "mock_sess_dada65ae",
+      "replay_available": true
+    }
+  ],
+  "discrepancies": [
+    {
+      "gap_id": "gap_drift_101_ENG-402",
+      "category": "status_drift",
+      "severity": "high",
+      "title": "Merged PR #101 with open Linear ticket ENG-402",
+      "description": "GitHub PR #101 ('feat(auth): add google oauth provider support [ENG-402]') was merged, but Linear ticket ENG-402 remains marked as 'in_progress'.",
+      "affected_tools": [
+        "github",
+        "linear"
+      ],
+      "evidence": {
+        "github_pr": "101",
+        "pr_status": "merged",
+        "linear_ticket": "ENG-402",
+        "ticket_status": "in_progress"
+      },
+      "recommended_action": "Update Linear ticket ENG-402 status to 'Done' and log release note."
+    }
+  ],
+  "resolution_plan": [
+    "Sync status on linear for gap 'gap_drift_101_ENG-402'"
+  ],
+  "sandbox_id": "sbx_sim_1_base",
+  "desktop_id": "dsk_sim_1",
+  "executed_actions": [
+    {
+      "action_id": "act_sync_gap_drift_101_ENG-402",
+      "gap_id": "gap_drift_101_ENG-402",
+      "target_tool": "linear",
+      "action_type": "status_sync",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Updated status on linear for ENG-402",
+      "preview_url": null,
+      "success": true
+    },
+    {
+      "action_id": "act_desktop_verify",
+      "gap_id": "gui_verification",
+      "target_tool": "desktop",
+      "action_type": "desktop_gui_update",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Desktop GUI verification captured (69 bytes)",
+      "preview_url": "wss://stream.getsolari.com/vnc/dsk_sim_1",
+      "success": true
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "test_suite_passed": true,
+    "preview_reachable": true,
+    "preview_url": null,
+    "rrweb_replay_events": 0,
+    "verification_log": "All sandbox test runs passed and staging preview server responded with HTTP 200."
+  },
+  "approval_required": true,
+  "approved": true,
+  "reviewer_comments": null,
+  "executive_brief": "# Forge Executive Stack Audit: case_01\n**Generated**: 2026-09-01 14:15:27 UTC | **Scope**: Cross-System Integrity Audit\n\n**Task Objective**: Weekly status sync audit: Detect PR merged on Friday with Linear ticket still in progress.\n\n## Executive Summary\n- **Total Discrepancies Surfaced**: 1\n- **Critical Gaps**: 0 | **High Severity**: 1\n- **Autonomous Actions Executed**: 2 (2 succeeded)\n- **Verification Status**: VERIFIED\n\n## Discrepancy Details\n### 1. [HIGH] Merged PR #101 with open Linear ticket ENG-402\n- **Category**: `status_drift`\n- **Affected Tools**: github, linear\n- **Description**: GitHub PR #101 ('feat(auth): add google oauth provider support [ENG-402]') was merged, but Linear ticket ENG-402 remains marked as 'in_progress'.\n- **Recommended Resolution**: Update Linear ticket ENG-402 status to 'Done' and log release note.\n\n## Autonomous Execution Log\n- **[LINEAR] status_sync** (`act_sync_gap_drift_101_ENG-402`)\n  - Output: `Updated status on linear for ENG-402`\n  - Result: `SUCCESS`\n- **[DESKTOP] desktop_gui_update** (`act_desktop_verify`)\n  - Preview: [wss://stream.getsolari.com/vnc/dsk_sim_1](wss://stream.getsolari.com/vnc/dsk_sim_1)\n  - Output: `Desktop GUI verification captured (69 bytes)`\n  - Result: `SUCCESS`\n\n## Human Review Checkpoint\nReview the surfaced discrepancies and verified patches above before confirming final synchronization across live production APIs.",
+  "execution_time_seconds": 0.25,
+  "token_usage": 4670,
+  "trajectories": [
+    {
+      "node": "START",
+      "timestamp": "2026-09-01T14:15:26Z",
+      "description": "Starting Forge Autonomous Pipeline for case_01",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SENSE",
+      "timestamp": "2026-09-01T14:15:26Z",
+      "description": "Extracting cross-system signals from connected tools and web portals",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SENSE",
+      "timestamp": "2026-09-01T14:15:26Z",
+      "description": "Extracted 3 signals across 3 tools",
+      "data_snapshot": {
+        "signal_count": 3,
+        "web_extractions": 1
+      }
+    },
+    {
+      "node": "DECIDE",
+      "timestamp": "2026-09-01T14:15:26Z",
+      "description": "Analyzing cross-system signals for discrepancies and status drift",
+      "data_snapshot": {}
+    },
+    {
+      "node": "DECIDE",
+      "timestamp": "2026-09-01T14:15:26Z",
+      "description": "Identified 1 discrepancies; formulated 1 resolution steps",
+      "data_snapshot": {
+        "discrepancy_count": 1,
+        "gap_ids": [
+          "gap_drift_101_ENG-402"
+        ]
+      }
+    },
+    {
+      "node": "EXECUTE",
+      "timestamp": "2026-09-01T14:15:26Z",
+      "description": "Executing resolution actions across Sandboxes and Desktops",
+      "data_snapshot": {}
+    },
+    {
+      "node": "EXECUTE",
+      "timestamp": "2026-09-01T14:15:27Z",
+      "description": "Completed 2 resolution actions in sandbox sbx_sim_1_base",
+      "data_snapshot": {
+        "action_count": 2
+      }
+    },
+    {
+      "node": "VERIFY",
+      "timestamp": "2026-09-01T14:15:27Z",
+      "description": "Verifying executed patches, port previews, and test suites",
+      "data_snapshot": {}
+    },
+    {
+      "node": "VERIFY",
+      "timestamp": "2026-09-01T14:15:27Z",
+      "description": "Verification PASSED",
+      "data_snapshot": {
+        "verified": true,
+        "preview_url": null
+      }
+    },
+    {
+      "node": "APPROVE",
+      "timestamp": "2026-09-01T14:15:27Z",
+      "description": "Checkpoint auto-approved via CLI flag",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SAVE",
+      "timestamp": "2026-09-01T14:15:27Z",
+      "description": "Pipeline run completed in 0.25s with 1 gaps",
+      "data_snapshot": {}
+    }
+  ]
+}

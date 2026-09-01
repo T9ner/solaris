@@ -1,0 +1,282 @@
+{
+  "case_id": "case_09",
+  "task_description": "High-severity outage postmortem: Memory leak exception in Sentry and 2 unresolved linear tickets.",
+  "environment_mode": "mock",
+  "signals": [
+    {
+      "tool_name": "github",
+      "signal_type": "pull_request",
+      "entity_id": "310",
+      "title": "fix(worker): heartbeat timeout [OPS-44]",
+      "status": "merged",
+      "payload": {
+        "id": "310",
+        "title": "fix(worker): heartbeat timeout [OPS-44]",
+        "status": "merged",
+        "linear_issue_id": "OPS-44"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "github",
+      "signal_type": "pull_request",
+      "entity_id": "311",
+      "title": "fix(queue): retry backoff [OPS-45]",
+      "status": "merged",
+      "payload": {
+        "id": "311",
+        "title": "fix(queue): retry backoff [OPS-45]",
+        "status": "merged",
+        "linear_issue_id": "OPS-45"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "linear",
+      "signal_type": "ticket",
+      "entity_id": "OPS-44",
+      "title": "Worker heartbeat timeout",
+      "status": "in_progress",
+      "payload": {
+        "id": "OPS-44",
+        "title": "Worker heartbeat timeout",
+        "status": "in_progress"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "linear",
+      "signal_type": "ticket",
+      "entity_id": "OPS-45",
+      "title": "Queue retry backoff",
+      "status": "todo",
+      "payload": {
+        "id": "OPS-45",
+        "title": "Queue retry backoff",
+        "status": "todo"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "sentry",
+      "signal_type": "sentry_error",
+      "entity_id": "SENTRY-500",
+      "title": "Fatal: OutOfMemoryError in Celery worker pool",
+      "status": "unresolved",
+      "payload": {
+        "id": "SENTRY-500",
+        "title": "Fatal: OutOfMemoryError in Celery worker pool",
+        "status": "unresolved",
+        "event_count": 240,
+        "has_ticket": false
+      },
+      "raw_snippet": null
+    }
+  ],
+  "web_extractions": [],
+  "discrepancies": [
+    {
+      "gap_id": "gap_drift_310_OPS-44",
+      "category": "status_drift",
+      "severity": "high",
+      "title": "Merged PR #310 with open Linear ticket OPS-44",
+      "description": "GitHub PR #310 ('fix(worker): heartbeat timeout [OPS-44]') was merged, but Linear ticket OPS-44 remains marked as 'in_progress'.",
+      "affected_tools": [
+        "github",
+        "linear"
+      ],
+      "evidence": {
+        "github_pr": "310",
+        "pr_status": "merged",
+        "linear_ticket": "OPS-44",
+        "ticket_status": "in_progress"
+      },
+      "recommended_action": "Update Linear ticket OPS-44 status to 'Done' and log release note."
+    },
+    {
+      "gap_id": "gap_drift_311_OPS-45",
+      "category": "status_drift",
+      "severity": "high",
+      "title": "Merged PR #311 with open Linear ticket OPS-45",
+      "description": "GitHub PR #311 ('fix(queue): retry backoff [OPS-45]') was merged, but Linear ticket OPS-45 remains marked as 'todo'.",
+      "affected_tools": [
+        "github",
+        "linear"
+      ],
+      "evidence": {
+        "github_pr": "311",
+        "pr_status": "merged",
+        "linear_ticket": "OPS-45",
+        "ticket_status": "todo"
+      },
+      "recommended_action": "Update Linear ticket OPS-45 status to 'Done' and log release note."
+    },
+    {
+      "gap_id": "gap_sentry_SENTRY-500",
+      "category": "release_regression",
+      "severity": "critical",
+      "title": "Unresolved production exception 'Fatal: OutOfMemoryError in Celery worker pool' occurring 240 times",
+      "description": "Sentry error 'Fatal: OutOfMemoryError in Celery worker pool' has occurred 240 times since last deployment, with no tracking ticket in Linear.",
+      "affected_tools": [
+        "sentry",
+        "linear"
+      ],
+      "evidence": {
+        "sentry_id": "SENTRY-500",
+        "event_count": 240,
+        "stacktrace": ""
+      },
+      "recommended_action": "Create hotfix branch in sandbox, reproduce stacktrace in Python kernel, and deploy patch."
+    }
+  ],
+  "resolution_plan": [
+    "Sync status on linear for gap 'gap_drift_310_OPS-44'",
+    "Sync status on linear for gap 'gap_drift_311_OPS-45'",
+    "Isolate and patch 'gap_sentry_SENTRY-500' inside Solari MicroVM Sandbox"
+  ],
+  "sandbox_id": "sbx_sim_8_base",
+  "desktop_id": "dsk_sim_8",
+  "executed_actions": [
+    {
+      "action_id": "act_sync_gap_drift_310_OPS-44",
+      "gap_id": "gap_drift_310_OPS-44",
+      "target_tool": "linear",
+      "action_type": "status_sync",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Updated status on linear for OPS-44",
+      "preview_url": null,
+      "success": true
+    },
+    {
+      "action_id": "act_sync_gap_drift_311_OPS-45",
+      "gap_id": "gap_drift_311_OPS-45",
+      "target_tool": "linear",
+      "action_type": "status_sync",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Updated status on linear for OPS-45",
+      "preview_url": null,
+      "success": true
+    },
+    {
+      "action_id": "act_patch_gap_sentry_SENTRY-500",
+      "gap_id": "gap_sentry_SENTRY-500",
+      "target_tool": "sandbox",
+      "action_type": "sandbox_patch",
+      "command_or_code": "pytest /tmp/repro.py && apply_patch",
+      "file_path": "/tmp/app_main.py",
+      "output_preview": "================ 4 passed in 0.42s ================\nPASSED",
+      "preview_url": "https://sbx_sim_8_base-3000.preview.getsolari.com",
+      "success": true
+    },
+    {
+      "action_id": "act_desktop_verify",
+      "gap_id": "gui_verification",
+      "target_tool": "desktop",
+      "action_type": "desktop_gui_update",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Desktop GUI verification captured (69 bytes)",
+      "preview_url": "wss://stream.getsolari.com/vnc/dsk_sim_8",
+      "success": true
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "test_suite_passed": true,
+    "preview_reachable": true,
+    "preview_url": "https://sbx_sim_8_base-3000.preview.getsolari.com",
+    "rrweb_replay_events": 12,
+    "verification_log": "All sandbox test runs passed and staging preview server responded with HTTP 200."
+  },
+  "approval_required": true,
+  "approved": true,
+  "reviewer_comments": null,
+  "executive_brief": "# Forge Executive Stack Audit: case_09\n**Generated**: 2026-09-01 14:15:29 UTC | **Scope**: Cross-System Integrity Audit\n\n**Task Objective**: High-severity outage postmortem: Memory leak exception in Sentry and 2 unresolved linear tickets.\n\n## Executive Summary\n- **Total Discrepancies Surfaced**: 3\n- **Critical Gaps**: 1 | **High Severity**: 2\n- **Autonomous Actions Executed**: 4 (4 succeeded)\n- **Verification Status**: VERIFIED\n- **Live Staging Preview**: [https://sbx_sim_8_base-3000.preview.getsolari.com](https://sbx_sim_8_base-3000.preview.getsolari.com)\n\n## Discrepancy Details\n### 1. [HIGH] Merged PR #310 with open Linear ticket OPS-44\n- **Category**: `status_drift`\n- **Affected Tools**: github, linear\n- **Description**: GitHub PR #310 ('fix(worker): heartbeat timeout [OPS-44]') was merged, but Linear ticket OPS-44 remains marked as 'in_progress'.\n- **Recommended Resolution**: Update Linear ticket OPS-44 status to 'Done' and log release note.\n\n### 2. [HIGH] Merged PR #311 with open Linear ticket OPS-45\n- **Category**: `status_drift`\n- **Affected Tools**: github, linear\n- **Description**: GitHub PR #311 ('fix(queue): retry backoff [OPS-45]') was merged, but Linear ticket OPS-45 remains marked as 'todo'.\n- **Recommended Resolution**: Update Linear ticket OPS-45 status to 'Done' and log release note.\n\n### 3. [CRITICAL] Unresolved production exception 'Fatal: OutOfMemoryError in Celery worker pool' occurring 240 times\n- **Category**: `release_regression`\n- **Affected Tools**: sentry, linear\n- **Description**: Sentry error 'Fatal: OutOfMemoryError in Celery worker pool' has occurred 240 times since last deployment, with no tracking ticket in Linear.\n- **Recommended Resolution**: Create hotfix branch in sandbox, reproduce stacktrace in Python kernel, and deploy patch.\n\n## Autonomous Execution Log\n- **[LINEAR] status_sync** (`act_sync_gap_drift_310_OPS-44`)\n  - Output: `Updated status on linear for OPS-44`\n  - Result: `SUCCESS`\n- **[LINEAR] status_sync** (`act_sync_gap_drift_311_OPS-45`)\n  - Output: `Updated status on linear for OPS-45`\n  - Result: `SUCCESS`\n- **[SANDBOX] sandbox_patch** (`act_patch_gap_sentry_SENTRY-500`)\n  - File: `/tmp/app_main.py`\n  - Preview: [https://sbx_sim_8_base-3000.preview.getsolari.com](https://sbx_sim_8_base-3000.preview.getsolari.com)\n  - Output: `================ 4 passed in 0.42s ================\nPASSED`\n  - Result: `SUCCESS`\n- **[DESKTOP] desktop_gui_update** (`act_desktop_verify`)\n  - Preview: [wss://stream.getsolari.com/vnc/dsk_sim_8](wss://stream.getsolari.com/vnc/dsk_sim_8)\n  - Output: `Desktop GUI verification captured (69 bytes)`\n  - Result: `SUCCESS`\n\n## Human Review Checkpoint\nReview the surfaced discrepancies and verified patches above before confirming final synchronization across live production APIs.",
+  "execution_time_seconds": 0.41,
+  "token_usage": 6550,
+  "trajectories": [
+    {
+      "node": "START",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Starting Forge Autonomous Pipeline for case_09",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SENSE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Extracting cross-system signals from connected tools and web portals",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SENSE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Extracted 5 signals across 3 tools",
+      "data_snapshot": {
+        "signal_count": 5,
+        "web_extractions": 0
+      }
+    },
+    {
+      "node": "DECIDE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Analyzing cross-system signals for discrepancies and status drift",
+      "data_snapshot": {}
+    },
+    {
+      "node": "DECIDE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Identified 3 discrepancies; formulated 3 resolution steps",
+      "data_snapshot": {
+        "discrepancy_count": 3,
+        "gap_ids": [
+          "gap_drift_310_OPS-44",
+          "gap_drift_311_OPS-45",
+          "gap_sentry_SENTRY-500"
+        ]
+      }
+    },
+    {
+      "node": "EXECUTE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Executing resolution actions across Sandboxes and Desktops",
+      "data_snapshot": {}
+    },
+    {
+      "node": "EXECUTE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Completed 4 resolution actions in sandbox sbx_sim_8_base",
+      "data_snapshot": {
+        "action_count": 4
+      }
+    },
+    {
+      "node": "VERIFY",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Verifying executed patches, port previews, and test suites",
+      "data_snapshot": {}
+    },
+    {
+      "node": "VERIFY",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Verification PASSED",
+      "data_snapshot": {
+        "verified": true,
+        "preview_url": "https://sbx_sim_8_base-3000.preview.getsolari.com"
+      }
+    },
+    {
+      "node": "APPROVE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Checkpoint auto-approved via CLI flag",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SAVE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Pipeline run completed in 0.41s with 3 gaps",
+      "data_snapshot": {}
+    }
+  ]
+}

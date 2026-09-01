@@ -1,0 +1,47 @@
+{
+  "case_id": "case_08",
+  "description": "Multi-team sprint audit: 3 separate PRs merged with untracked status across frontend and backend teams.",
+  "expected_gaps_count": 3,
+  "expected_categories": ["status_drift", "status_drift", "status_drift"],
+  "github_prs": [
+    {
+      "id": "201",
+      "title": "feat(ui): dark mode toggle [FE-101]",
+      "status": "merged",
+      "linear_issue_id": "FE-101"
+    },
+    {
+      "id": "202",
+      "title": "feat(api): bulk export endpoint [BE-202]",
+      "status": "merged",
+      "linear_issue_id": "BE-202"
+    },
+    {
+      "id": "203",
+      "title": "perf(cache): redis cluster migration [INFRA-303]",
+      "status": "merged",
+      "linear_issue_id": "INFRA-303"
+    }
+  ],
+  "github_issues": [],
+  "linear_tickets": [
+    {
+      "id": "FE-101",
+      "title": "Dark mode toggle",
+      "status": "in_progress"
+    },
+    {
+      "id": "BE-202",
+      "title": "Bulk export endpoint",
+      "status": "todo"
+    },
+    {
+      "id": "INFRA-303",
+      "title": "Redis cluster migration",
+      "status": "unstarted"
+    }
+  ],
+  "sentry_errors": [],
+  "stripe_events": [],
+  "web_targets": []
+}

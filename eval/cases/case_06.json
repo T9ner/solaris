@@ -1,0 +1,25 @@
+{
+  "case_id": "case_06",
+  "description": "Perfect synchronization baseline: All PRs, tickets, and billing events are in sync. Expected 0 false positives.",
+  "expected_gaps_count": 0,
+  "expected_categories": [],
+  "github_prs": [
+    {
+      "id": "115",
+      "title": "docs: update API documentation [DOCS-10]",
+      "status": "merged",
+      "linear_issue_id": "DOCS-10"
+    }
+  ],
+  "github_issues": [],
+  "linear_tickets": [
+    {
+      "id": "DOCS-10",
+      "title": "Update API documentation",
+      "status": "done"
+    }
+  ],
+  "sentry_errors": [],
+  "stripe_events": [],
+  "web_targets": []
+}

@@ -1,0 +1,193 @@
+{
+  "case_id": "case_04",
+  "task_description": "Billing integrity audit: Public marketing page displays $49/mo Pro plan while Stripe API is set to $59/mo.",
+  "environment_mode": "mock",
+  "signals": [
+    {
+      "tool_name": "stripe",
+      "signal_type": "payment_event",
+      "entity_id": "evt_stripe_pricing",
+      "title": "Stripe Billing Catalog",
+      "status": "active",
+      "payload": {
+        "id": "evt_stripe_pricing",
+        "title": "Stripe Billing Catalog",
+        "plans": {
+          "Pro": 59,
+          "Enterprise": 299
+        }
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "web_portal",
+      "signal_type": "web_page",
+      "entity_id": "https://company.com/pricing",
+      "title": "Page at https://company.com/pricing",
+      "status": "reachable",
+      "payload": {
+        "url": "https://company.com/pricing",
+        "plans": {
+          "Pro": 49,
+          "Enterprise": 299
+        },
+        "snippet": "<html><body><h1>Page at https://company.com/pricing</h1><p>Simulated live extraction for https://company.com/pricing</p></body></html>",
+        "session_id": "mock_sess_7a4e4528"
+      },
+      "raw_snippet": "<html><body><h1>Page at https://company.com/pricing</h1><p>Simulated live extraction for https://company.com/pricing</p></body></html>"
+    }
+  ],
+  "web_extractions": [
+    {
+      "url": "https://company.com/pricing",
+      "title": "Page at https://company.com/pricing",
+      "status_code": 200,
+      "session_id": "mock_sess_7a4e4528",
+      "replay_available": true
+    }
+  ],
+  "discrepancies": [
+    {
+      "gap_id": "gap_price_Pro",
+      "category": "payment_mismatch",
+      "severity": "high",
+      "title": "Pricing drift for Pro: Web ($49) vs Stripe ($59)",
+      "description": "Live marketing page displays $49 for Pro, while Stripe API billing tier is configured at $59.",
+      "affected_tools": [
+        "web_portal",
+        "stripe"
+      ],
+      "evidence": {
+        "plan": "Pro",
+        "web_price": 49,
+        "stripe_price": 59,
+        "page_url": "https://company.com/pricing"
+      },
+      "recommended_action": "Synchronize Stripe price object for 'Pro' to match published $49 pricing."
+    }
+  ],
+  "resolution_plan": [
+    "Realign Stripe billing configuration for 'gap_price_Pro'"
+  ],
+  "sandbox_id": "sbx_sim_4_base",
+  "desktop_id": "dsk_sim_4",
+  "executed_actions": [
+    {
+      "action_id": "act_stripe_gap_price_Pro",
+      "gap_id": "gap_price_Pro",
+      "target_tool": "stripe",
+      "action_type": "status_sync",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Adjusted billing tier for Pro",
+      "preview_url": null,
+      "success": true
+    },
+    {
+      "action_id": "act_desktop_verify",
+      "gap_id": "gui_verification",
+      "target_tool": "desktop",
+      "action_type": "desktop_gui_update",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Desktop GUI verification captured (69 bytes)",
+      "preview_url": "wss://stream.getsolari.com/vnc/dsk_sim_4",
+      "success": true
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "test_suite_passed": true,
+    "preview_reachable": true,
+    "preview_url": null,
+    "rrweb_replay_events": 0,
+    "verification_log": "All sandbox test runs passed and staging preview server responded with HTTP 200."
+  },
+  "approval_required": true,
+  "approved": true,
+  "reviewer_comments": null,
+  "executive_brief": "# Forge Executive Stack Audit: case_04\n**Generated**: 2026-09-01 14:15:28 UTC | **Scope**: Cross-System Integrity Audit\n\n**Task Objective**: Billing integrity audit: Public marketing page displays $49/mo Pro plan while Stripe API is set to $59/mo.\n\n## Executive Summary\n- **Total Discrepancies Surfaced**: 1\n- **Critical Gaps**: 0 | **High Severity**: 1\n- **Autonomous Actions Executed**: 2 (2 succeeded)\n- **Verification Status**: VERIFIED\n\n## Discrepancy Details\n### 1. [HIGH] Pricing drift for Pro: Web ($49) vs Stripe ($59)\n- **Category**: `payment_mismatch`\n- **Affected Tools**: web_portal, stripe\n- **Description**: Live marketing page displays $49 for Pro, while Stripe API billing tier is configured at $59.\n- **Recommended Resolution**: Synchronize Stripe price object for 'Pro' to match published $49 pricing.\n\n## Autonomous Execution Log\n- **[STRIPE] status_sync** (`act_stripe_gap_price_Pro`)\n  - Output: `Adjusted billing tier for Pro`\n  - Result: `SUCCESS`\n- **[DESKTOP] desktop_gui_update** (`act_desktop_verify`)\n  - Preview: [wss://stream.getsolari.com/vnc/dsk_sim_4](wss://stream.getsolari.com/vnc/dsk_sim_4)\n  - Output: `Desktop GUI verification captured (69 bytes)`\n  - Result: `SUCCESS`\n\n## Human Review Checkpoint\nReview the surfaced discrepancies and verified patches above before confirming final synchronization across live production APIs.",
+  "execution_time_seconds": 0.25,
+  "token_usage": 4530,
+  "trajectories": [
+    {
+      "node": "START",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Starting Forge Autonomous Pipeline for case_04",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SENSE",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Extracting cross-system signals from connected tools and web portals",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SENSE",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Extracted 2 signals across 2 tools",
+      "data_snapshot": {
+        "signal_count": 2,
+        "web_extractions": 1
+      }
+    },
+    {
+      "node": "DECIDE",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Analyzing cross-system signals for discrepancies and status drift",
+      "data_snapshot": {}
+    },
+    {
+      "node": "DECIDE",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Identified 1 discrepancies; formulated 1 resolution steps",
+      "data_snapshot": {
+        "discrepancy_count": 1,
+        "gap_ids": [
+          "gap_price_Pro"
+        ]
+      }
+    },
+    {
+      "node": "EXECUTE",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Executing resolution actions across Sandboxes and Desktops",
+      "data_snapshot": {}
+    },
+    {
+      "node": "EXECUTE",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Completed 2 resolution actions in sandbox sbx_sim_4_base",
+      "data_snapshot": {
+        "action_count": 2
+      }
+    },
+    {
+      "node": "VERIFY",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Verifying executed patches, port previews, and test suites",
+      "data_snapshot": {}
+    },
+    {
+      "node": "VERIFY",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Verification PASSED",
+      "data_snapshot": {
+        "verified": true,
+        "preview_url": null
+      }
+    },
+    {
+      "node": "APPROVE",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Checkpoint auto-approved via CLI flag",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SAVE",
+      "timestamp": "2026-09-01T14:15:28Z",
+      "description": "Pipeline run completed in 0.25s with 1 gaps",
+      "data_snapshot": {}
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "case_id": "case_02",
+  "description": "Release verification audit: Feature marked Done in Linear but critical regression issue open in GitHub.",
+  "expected_gaps_count": 1,
+  "expected_categories": ["untracked_bug"],
+  "github_prs": [],
+  "github_issues": [
+    {
+      "id": "204",
+      "title": "Critical memory leak on worker shutdown [CORE-105]",
+      "status": "open",
+      "severity": "critical",
+      "linear_ticket": "CORE-105"
+    }
+  ],
+  "linear_tickets": [
+    {
+      "id": "CORE-105",
+      "title": "Refactor background worker pool",
+      "status": "done"
+    }
+  ],
+  "sentry_errors": [],
+  "stripe_events": [],
+  "web_targets": []
+}

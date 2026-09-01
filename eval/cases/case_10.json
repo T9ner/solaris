@@ -1,0 +1,25 @@
+{
+  "case_id": "case_10",
+  "description": "Production staging release verification: All tools perfectly aligned. Expected 0 false positives.",
+  "expected_gaps_count": 0,
+  "expected_categories": [],
+  "github_prs": [
+    {
+      "id": "401",
+      "title": "chore: bump dependencies to 2.4.0 [REL-100]",
+      "status": "merged",
+      "linear_issue_id": "REL-100"
+    }
+  ],
+  "github_issues": [],
+  "linear_tickets": [
+    {
+      "id": "REL-100",
+      "title": "Release 2.4.0 dependencies bump",
+      "status": "done"
+    }
+  ],
+  "sentry_errors": [],
+  "stripe_events": [],
+  "web_targets": []
+}

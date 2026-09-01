@@ -1,0 +1,295 @@
+{
+  "case_id": "case_08",
+  "task_description": "Multi-team sprint audit: 3 separate PRs merged with untracked status across frontend and backend teams.",
+  "environment_mode": "mock",
+  "signals": [
+    {
+      "tool_name": "github",
+      "signal_type": "pull_request",
+      "entity_id": "201",
+      "title": "feat(ui): dark mode toggle [FE-101]",
+      "status": "merged",
+      "payload": {
+        "id": "201",
+        "title": "feat(ui): dark mode toggle [FE-101]",
+        "status": "merged",
+        "linear_issue_id": "FE-101"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "github",
+      "signal_type": "pull_request",
+      "entity_id": "202",
+      "title": "feat(api): bulk export endpoint [BE-202]",
+      "status": "merged",
+      "payload": {
+        "id": "202",
+        "title": "feat(api): bulk export endpoint [BE-202]",
+        "status": "merged",
+        "linear_issue_id": "BE-202"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "github",
+      "signal_type": "pull_request",
+      "entity_id": "203",
+      "title": "perf(cache): redis cluster migration [INFRA-303]",
+      "status": "merged",
+      "payload": {
+        "id": "203",
+        "title": "perf(cache): redis cluster migration [INFRA-303]",
+        "status": "merged",
+        "linear_issue_id": "INFRA-303"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "linear",
+      "signal_type": "ticket",
+      "entity_id": "FE-101",
+      "title": "Dark mode toggle",
+      "status": "in_progress",
+      "payload": {
+        "id": "FE-101",
+        "title": "Dark mode toggle",
+        "status": "in_progress"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "linear",
+      "signal_type": "ticket",
+      "entity_id": "BE-202",
+      "title": "Bulk export endpoint",
+      "status": "todo",
+      "payload": {
+        "id": "BE-202",
+        "title": "Bulk export endpoint",
+        "status": "todo"
+      },
+      "raw_snippet": null
+    },
+    {
+      "tool_name": "linear",
+      "signal_type": "ticket",
+      "entity_id": "INFRA-303",
+      "title": "Redis cluster migration",
+      "status": "unstarted",
+      "payload": {
+        "id": "INFRA-303",
+        "title": "Redis cluster migration",
+        "status": "unstarted"
+      },
+      "raw_snippet": null
+    }
+  ],
+  "web_extractions": [],
+  "discrepancies": [
+    {
+      "gap_id": "gap_drift_201_FE-101",
+      "category": "status_drift",
+      "severity": "high",
+      "title": "Merged PR #201 with open Linear ticket FE-101",
+      "description": "GitHub PR #201 ('feat(ui): dark mode toggle [FE-101]') was merged, but Linear ticket FE-101 remains marked as 'in_progress'.",
+      "affected_tools": [
+        "github",
+        "linear"
+      ],
+      "evidence": {
+        "github_pr": "201",
+        "pr_status": "merged",
+        "linear_ticket": "FE-101",
+        "ticket_status": "in_progress"
+      },
+      "recommended_action": "Update Linear ticket FE-101 status to 'Done' and log release note."
+    },
+    {
+      "gap_id": "gap_drift_202_BE-202",
+      "category": "status_drift",
+      "severity": "high",
+      "title": "Merged PR #202 with open Linear ticket BE-202",
+      "description": "GitHub PR #202 ('feat(api): bulk export endpoint [BE-202]') was merged, but Linear ticket BE-202 remains marked as 'todo'.",
+      "affected_tools": [
+        "github",
+        "linear"
+      ],
+      "evidence": {
+        "github_pr": "202",
+        "pr_status": "merged",
+        "linear_ticket": "BE-202",
+        "ticket_status": "todo"
+      },
+      "recommended_action": "Update Linear ticket BE-202 status to 'Done' and log release note."
+    },
+    {
+      "gap_id": "gap_drift_203_INFRA-303",
+      "category": "status_drift",
+      "severity": "high",
+      "title": "Merged PR #203 with open Linear ticket INFRA-303",
+      "description": "GitHub PR #203 ('perf(cache): redis cluster migration [INFRA-303]') was merged, but Linear ticket INFRA-303 remains marked as 'unstarted'.",
+      "affected_tools": [
+        "github",
+        "linear"
+      ],
+      "evidence": {
+        "github_pr": "203",
+        "pr_status": "merged",
+        "linear_ticket": "INFRA-303",
+        "ticket_status": "unstarted"
+      },
+      "recommended_action": "Update Linear ticket INFRA-303 status to 'Done' and log release note."
+    }
+  ],
+  "resolution_plan": [
+    "Sync status on linear for gap 'gap_drift_201_FE-101'",
+    "Sync status on linear for gap 'gap_drift_202_BE-202'",
+    "Sync status on linear for gap 'gap_drift_203_INFRA-303'"
+  ],
+  "sandbox_id": "sbx_sim_7_base",
+  "desktop_id": "dsk_sim_7",
+  "executed_actions": [
+    {
+      "action_id": "act_sync_gap_drift_201_FE-101",
+      "gap_id": "gap_drift_201_FE-101",
+      "target_tool": "linear",
+      "action_type": "status_sync",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Updated status on linear for FE-101",
+      "preview_url": null,
+      "success": true
+    },
+    {
+      "action_id": "act_sync_gap_drift_202_BE-202",
+      "gap_id": "gap_drift_202_BE-202",
+      "target_tool": "linear",
+      "action_type": "status_sync",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Updated status on linear for BE-202",
+      "preview_url": null,
+      "success": true
+    },
+    {
+      "action_id": "act_sync_gap_drift_203_INFRA-303",
+      "gap_id": "gap_drift_203_INFRA-303",
+      "target_tool": "linear",
+      "action_type": "status_sync",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Updated status on linear for INFRA-303",
+      "preview_url": null,
+      "success": true
+    },
+    {
+      "action_id": "act_desktop_verify",
+      "gap_id": "gui_verification",
+      "target_tool": "desktop",
+      "action_type": "desktop_gui_update",
+      "command_or_code": null,
+      "file_path": null,
+      "output_preview": "Desktop GUI verification captured (69 bytes)",
+      "preview_url": "wss://stream.getsolari.com/vnc/dsk_sim_7",
+      "success": true
+    }
+  ],
+  "verification": {
+    "verified": true,
+    "test_suite_passed": true,
+    "preview_reachable": true,
+    "preview_url": null,
+    "rrweb_replay_events": 0,
+    "verification_log": "All sandbox test runs passed and staging preview server responded with HTTP 200."
+  },
+  "approval_required": true,
+  "approved": true,
+  "reviewer_comments": null,
+  "executive_brief": "# Forge Executive Stack Audit: case_08\n**Generated**: 2026-09-01 14:15:29 UTC | **Scope**: Cross-System Integrity Audit\n\n**Task Objective**: Multi-team sprint audit: 3 separate PRs merged with untracked status across frontend and backend teams.\n\n## Executive Summary\n- **Total Discrepancies Surfaced**: 3\n- **Critical Gaps**: 0 | **High Severity**: 3\n- **Autonomous Actions Executed**: 4 (4 succeeded)\n- **Verification Status**: VERIFIED\n\n## Discrepancy Details\n### 1. [HIGH] Merged PR #201 with open Linear ticket FE-101\n- **Category**: `status_drift`\n- **Affected Tools**: github, linear\n- **Description**: GitHub PR #201 ('feat(ui): dark mode toggle [FE-101]') was merged, but Linear ticket FE-101 remains marked as 'in_progress'.\n- **Recommended Resolution**: Update Linear ticket FE-101 status to 'Done' and log release note.\n\n### 2. [HIGH] Merged PR #202 with open Linear ticket BE-202\n- **Category**: `status_drift`\n- **Affected Tools**: github, linear\n- **Description**: GitHub PR #202 ('feat(api): bulk export endpoint [BE-202]') was merged, but Linear ticket BE-202 remains marked as 'todo'.\n- **Recommended Resolution**: Update Linear ticket BE-202 status to 'Done' and log release note.\n\n### 3. [HIGH] Merged PR #203 with open Linear ticket INFRA-303\n- **Category**: `status_drift`\n- **Affected Tools**: github, linear\n- **Description**: GitHub PR #203 ('perf(cache): redis cluster migration [INFRA-303]') was merged, but Linear ticket INFRA-303 remains marked as 'unstarted'.\n- **Recommended Resolution**: Update Linear ticket INFRA-303 status to 'Done' and log release note.\n\n## Autonomous Execution Log\n- **[LINEAR] status_sync** (`act_sync_gap_drift_201_FE-101`)\n  - Output: `Updated status on linear for FE-101`\n  - Result: `SUCCESS`\n- **[LINEAR] status_sync** (`act_sync_gap_drift_202_BE-202`)\n  - Output: `Updated status on linear for BE-202`\n  - Result: `SUCCESS`\n- **[LINEAR] status_sync** (`act_sync_gap_drift_203_INFRA-303`)\n  - Output: `Updated status on linear for INFRA-303`\n  - Result: `SUCCESS`\n- **[DESKTOP] desktop_gui_update** (`act_desktop_verify`)\n  - Preview: [wss://stream.getsolari.com/vnc/dsk_sim_7](wss://stream.getsolari.com/vnc/dsk_sim_7)\n  - Output: `Desktop GUI verification captured (69 bytes)`\n  - Result: `SUCCESS`\n\n## Human Review Checkpoint\nReview the surfaced discrepancies and verified patches above before confirming final synchronization across live production APIs.",
+  "execution_time_seconds": 0.18,
+  "token_usage": 6690,
+  "trajectories": [
+    {
+      "node": "START",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Starting Forge Autonomous Pipeline for case_08",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SENSE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Extracting cross-system signals from connected tools and web portals",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SENSE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Extracted 6 signals across 2 tools",
+      "data_snapshot": {
+        "signal_count": 6,
+        "web_extractions": 0
+      }
+    },
+    {
+      "node": "DECIDE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Analyzing cross-system signals for discrepancies and status drift",
+      "data_snapshot": {}
+    },
+    {
+      "node": "DECIDE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Identified 3 discrepancies; formulated 3 resolution steps",
+      "data_snapshot": {
+        "discrepancy_count": 3,
+        "gap_ids": [
+          "gap_drift_201_FE-101",
+          "gap_drift_202_BE-202",
+          "gap_drift_203_INFRA-303"
+        ]
+      }
+    },
+    {
+      "node": "EXECUTE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Executing resolution actions across Sandboxes and Desktops",
+      "data_snapshot": {}
+    },
+    {
+      "node": "EXECUTE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Completed 4 resolution actions in sandbox sbx_sim_7_base",
+      "data_snapshot": {
+        "action_count": 4
+      }
+    },
+    {
+      "node": "VERIFY",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Verifying executed patches, port previews, and test suites",
+      "data_snapshot": {}
+    },
+    {
+      "node": "VERIFY",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Verification PASSED",
+      "data_snapshot": {
+        "verified": true,
+        "preview_url": null
+      }
+    },
+    {
+      "node": "APPROVE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Checkpoint auto-approved via CLI flag",
+      "data_snapshot": {}
+    },
+    {
+      "node": "SAVE",
+      "timestamp": "2026-09-01T14:15:29Z",
+      "description": "Pipeline run completed in 0.18s with 3 gaps",
+      "data_snapshot": {}
+    }
+  ]
+}
